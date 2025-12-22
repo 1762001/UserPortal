@@ -18,7 +18,10 @@ pipeline {
 
         stage('Build JAR') {
             steps {
-                sh 'mvn clean package'
+                sh '''
+        cd backend/usersearch
+        mvn clean package
+        '''
             }
         }
 
