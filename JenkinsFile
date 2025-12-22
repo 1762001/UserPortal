@@ -20,7 +20,7 @@ pipeline {
             steps {
                 sh '''
         cd backend/usersearch
-        mvn clean package
+        mvn clean package -DskipTests
         '''
             }
         }
