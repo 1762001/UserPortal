@@ -26,18 +26,19 @@ pipeline {
         }
 
         stage('Docker Build & Push') {
-            steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
-                    sh '''
-                    gcloud auth activate-service-account --key-file=$GCP_KEY
-                    gcloud auth configure-docker asia-south1-docker.pkg.dev -q
+    steps {
+        withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+            sh '''
+            gcloud auth activate-service-account --key-file=$GCP_KEY
+            gcloud auth configure-docker asia-south1-docker.pkg.dev -q
 
-                    docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPO/$IMAGE .
-                    docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPO/$IMAGE
-                    '''
-                }
-            }
+            cd backend/usersearch
+            docker build -t asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot .
+            docker push asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot
+            '''
         }
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
