@@ -1,0 +1,41 @@
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-primary" role="status"></div>
+</div>
+
+<div *ngIf="!loading && users?.length; else emptyState" class="row g-4">
+
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let u of users">
+    <div class="card user-card h-100 shadow-sm border-0 hover-pointer" [routerLink]="['/users', u.id]">
+
+      <div class="text-center p-3">
+        <img
+          [src]="u.image"
+          loading="lazy"
+          [alt]="u.firstName + ' image'"
+          class="img-fluid rounded"
+          style="max-height: 250px; object-fit: cover;"
+        />
+      </div>
+
+      <div class="card-body text-center">
+        <h5 class="card-title mb-1">{{ u.firstName }} {{ u.lastName }}</h5>
+        <p class="text-muted mb-1 small">{{ u.email }}</p>
+
+        <hr>
+
+        <p class="card-text mb-1"><strong>Age:</strong> {{ u.age }}</p>
+        <p class="card-text mb-1"><strong>Role:</strong> {{ u.role ?? 'User' }}</p>
+        <p class="card-text text-muted small"><strong>SSN:</strong> {{ u.ssn }}</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<ng-template #emptyState>
+  <div class="text-center py-5 text-muted">
+    <i class="bi bi-people display-5"></i>
+    <p class="lead mt-2">No users found</p>
+  </div>
+</ng-template>

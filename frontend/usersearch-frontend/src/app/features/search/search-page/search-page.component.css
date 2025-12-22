@@ -1,0 +1,72 @@
+.search-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa, #e4ebf7);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+  }
+  
+  .app-title {
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar input {
+    border: 2px solid #ddd;
+    border-radius: 50px !important;
+    box-shadow: none;
+  }
+  
+  .search-bar input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  }
+  
+  .btn-search {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+  }
+  
+  .btn-search:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .controls select, .controls button {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .controls button:hover {
+    transform: scale(1.05);
+  }
+  
+  .alert {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+  }
+  
+  @media (max-width: 576px) {
+    .search-bar {
+      max-width: 90%;
+    }
+  
+    .app-title {
+      font-size: 1.6rem;
+    }
+  }
+  

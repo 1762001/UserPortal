@@ -1,0 +1,80 @@
+<div class="search-page container-fluid d-flex flex-column align-items-center py-5">
+
+  <!-- Title + Search Box -->
+  <div class="search-box text-center mt-4">
+    <h1 class="app-title mb-4">User Search Portal</h1>
+
+    <div class="input-group input-group-lg justify-content-center search-bar shadow-sm">
+      <input
+        type="text"
+        class="form-control rounded-pill px-4"
+        [(ngModel)]="query"
+        (keyup)="onEnterKey($event)"
+        placeholder="Search users by first name, last name, or SSN..."
+      />
+      <button class="btn btn-search ms-2 rounded-circle" (click)="onSearchClick()">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+
+    <small class="text-muted mt-2 d-block">Type at least 3 characters to search</small>
+  </div>
+
+  <!-- Filters -->
+  <div class="controls container mt-4">
+    <div class="row justify-content-center text-center gy-3">
+
+      <!-- Filter by Role -->
+      <div class="col-sm-6 col-md-4">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <label class="fw-semibold">Filter by Role:</label>
+          <select class="form-select w-auto rounded-pill" (change)="onRoleFilterChange($event)">
+            <option value="">All</option>
+            <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Sort by Age -->
+      <div class="col-sm-6 col-md-4">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <button class="btn btn-outline-dark rounded-pill" (click)="toggleAgeSort()">
+            <i *ngIf="ageSortAsc === null" class="bi bi-sort-numeric-down"></i>
+            <i *ngIf="ageSortAsc === true" class="bi bi-sort-numeric-up"></i>
+            <i *ngIf="ageSortAsc === false" class="bi bi-sort-numeric-down-alt"></i>
+            Sort by Age
+          </button>
+
+          <button class="btn btn-outline-danger rounded-pill" (click)="clearAll()">
+            <i class="bi bi-x-circle"></i> Clear
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Loading & Error -->
+  <div class="container text-center mt-4">
+    <div *ngIf="errorMsg" class="alert alert-warning shadow-sm d-inline-block px-4 py-2 rounded-pill">
+      {{ errorMsg }}
+    </div>
+
+    <div *ngIf="loading" class="mt-4">
+      <div class="spinner-border text-primary"></div>
+      <p class="text-muted mt-2">Loading users...</p>
+    </div>
+  </div>
+
+  <!-- User Grid -->
+  <div class="container mt-4">
+    <app-user-grid [users]="filteredUsers"></app-user-grid>
+  </div>
+
+  <div class="button">
+    <button (click)="nextPage()"> Next</button>
+    <button (click)="previousPage()"> Previous</button>
+
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+.user-details-card {
+  max-width: 520px;
+  border-radius: 18px;
+  padding: 1rem 0.5rem;
+}
+
+.profile-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 5px solid #dee2e6;
+}
