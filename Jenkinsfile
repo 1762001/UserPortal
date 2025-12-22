@@ -40,13 +40,25 @@ pipeline {
     }
 }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-        sh '''
-        cd backend/usersearch
-        kubectl apply -f k8s/
-        '''
-    }
+    stage('Deploy to Kubernetes') {
+    steps {
+        withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+            sh '''
+            # Authenticate Jenkins to GCP
+            gcloud auth activate-service-account --key-file=$GCP_KEY
+            gcloud config set project trusty-moment-476908-d1
+
+            # Get GKE credentials (creates kubeconfig)
+            gcloud container clusters get-credentials app-cluster \
+              --zone asia-south1-a
+
+            # Deploy manifests
+            cd backend/usersearch
+            kubectl apply -f k8s/
+            '''
         }
+    }
+}
+
     }
 }
