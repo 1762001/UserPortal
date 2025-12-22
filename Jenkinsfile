@@ -42,10 +42,11 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh '''
-                kubectl apply -f k8s/
-                '''
-            }
+        sh '''
+        cd backend/usersearch
+        kubectl apply -f k8s/
+        '''
+    }
         }
     }
 }
