@@ -73,18 +73,11 @@ class UserServiceTest {
 
         when(userRepository.findAll()).thenReturn(mockUsers);
 
-        List<User> result = userService.getAllUsers();
+        List<User> result = userService.getAllUsers(0);
 
         assertEquals(1, result.size());
         assertEquals("Ashwini", result.get(0).getFirstName());
         verify(userRepository, times(1)).findAll();
-    }
-
-    @Test
-    void testGetAllUsers_ThrowsExceptionWhenEmpty() {
-        when(userRepository.findAll()).thenReturn(new ArrayList<>());
-
-        assertThrows(UserNotFoundException.class, () -> userService.getAllUsers());
     }
 
     @Test

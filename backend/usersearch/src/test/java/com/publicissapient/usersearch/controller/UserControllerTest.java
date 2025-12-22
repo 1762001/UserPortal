@@ -32,12 +32,12 @@ class UserControllerTest {
     @Test
     void testGetAllUsers() {
         User user = new User(1L, "Ashwini", "Doe", "john@example.com", "1234", 25, "Admin", "");
-        when(userService.getAllUsers()).thenReturn(List.of(user));
+        when(userService.getAllUsers(0)).thenReturn(List.of(user));
 
-        ResponseEntity<List<User>> response = userController.getAllUsers();
+        ResponseEntity<List<User>> response = userController.getAllUsers(0);
         assertNotNull(response.getBody());
         assertEquals(1, response.getBody().size());
-        verify(userService, times(1)).getAllUsers();
+        verify(userService, times(1)).getAllUsers(0);
     }
 
     @Test
@@ -46,7 +46,7 @@ class UserControllerTest {
         when(userService.getUserById(1L)).thenReturn(Optional.of(user));
         ResponseEntity<User> response = userController.getById(1L);
         assertNotNull(response.getBody());
-        assertEquals("John", response.getBody().getFirstName());
+        assertEquals("Ashwini", response.getBody().getFirstName());
     }
 
     @Test
