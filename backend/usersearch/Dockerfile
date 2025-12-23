@@ -12,9 +12,13 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
+# Copy application jar
 COPY --from=build /build/target/*.jar app.jar
-COPY opentelemetry-javaagent.jar otel.jar
 
+# ✅ Download OpenTelemetry Java Agent inside the image
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar otel.jar
+
+# Attach OpenTelemetry agent
 ENV JAVA_TOOL_OPTIONS="-javaagent:/app/otel.jar"
 
 EXPOSE 8080
