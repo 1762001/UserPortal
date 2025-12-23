@@ -13,6 +13,9 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 COPY --from=build /build/target/*.jar app.jar
+COPY opentelemetry-javaagent.jar otel.jar
+
+ENV JAVA_TOOL_OPTIONS="-javaagent:/app/otel.jar"
 
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]

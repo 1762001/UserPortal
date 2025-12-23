@@ -17,3 +17,19 @@ spec:
           image: asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot:latest
           ports:
             - containerPort: 8080
+
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: pantheon-business-app
+
+            - name: OTEL_TRACES_EXPORTER
+              value: googlecloud
+
+            - name: OTEL_METRICS_EXPORTER
+              value: none
+
+            - name: OTEL_LOGS_EXPORTER
+              value: none
+
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.version=1.0.0,env=prod
