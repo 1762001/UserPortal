@@ -14,16 +14,23 @@ spec:
     spec:
       containers:
         - name: springboot
-          image: asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot:latest
+          image: asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot:otel
           ports:
             - containerPort: 8080
 
+          # 👇 ADD THIS HERE
           env:
             - name: OTEL_SERVICE_NAME
               value: pantheon-business-app
 
             - name: OTEL_TRACES_EXPORTER
-              value: googlecloud
+              value: otlp
+
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: grpc
+
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: https://telemetry.googleapis.com:4317
 
             - name: OTEL_METRICS_EXPORTER
               value: none
