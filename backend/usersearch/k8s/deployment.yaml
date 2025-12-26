@@ -15,28 +15,23 @@ spec:
       containers:
         - name: springboot
           image: asia-south1-docker.pkg.dev/trusty-moment-476908-d1/my-repo/springboot:otel
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
 
-          # 👇 ADD THIS HERE
+          # =========================
+          # OpenTelemetry (DEBUG MODE)
+          # =========================
           env:
             - name: OTEL_SERVICE_NAME
               value: pantheon-business-app
 
+            # 🔑 IMPORTANT: logging exporter to confirm agent startup
             - name: OTEL_TRACES_EXPORTER
-              value: otlp
-
-            - name: OTEL_EXPORTER_OTLP_PROTOCOL
-              value: grpc
-
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: https://telemetry.googleapis.com:4317
+              value: logging
 
             - name: OTEL_METRICS_EXPORTER
               value: none
 
             - name: OTEL_LOGS_EXPORTER
               value: none
-
-            - name: OTEL_RESOURCE_ATTRIBUTES
-              value: service.version=1.0.0,env=prod
